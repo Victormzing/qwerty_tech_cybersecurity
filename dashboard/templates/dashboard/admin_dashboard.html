@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <p>Total Users: {{ total_users }}</p>
+    <p>Total Blog Posts: {{ total_posts }}</p>
+    <p>Total Inquiries: {{ total_inquiries }}</p>
+    
+    <h2>Recent Admin Logs</h2>
+    <ul>
+        {% for log in recent_logs %}
+            <li>{{ log.user.username }} - {{ log.action }} ({{ log.timestamp }})</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

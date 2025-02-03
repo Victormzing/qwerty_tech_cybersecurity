@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qwerty Tech - Cybersecurity</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white">
+    <nav class="bg-gray-800 p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold text-green-400">Qwerty Tech</h1>
+            <div>
+                <a href="{% url 'home' %}" class="text-gray-300 hover:text-green-400 px-4">Home</a>
+                <a href="{% url 'services' %}" class="text-gray-300 hover:text-green-400 px-4">Services</a>
+                <a href="{% url 'blog' %}" class="text-gray-300 hover:text-green-400 px-4">Blog</a>
+                <a href="{% url 'contact' %}" class="text-gray-300 hover:text-green-400 px-4">Contact</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container mx-auto my-10 px-6">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer class="bg-gray-800 text-center py-4">
+        <p class="text-gray-400">&copy; 2025 Qwerty Tech. All rights reserved.</p>
+    </footer>
+</body>
+</html>
