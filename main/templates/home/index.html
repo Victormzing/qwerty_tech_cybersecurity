@@ -1,39 +1,29 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-<div class="text-center">
-    <h2 class="text-4xl font-bold text-green-400">Welcome to Qwerty Tech</h2>
-    <p class="mt-4 text-gray-300">Your trusted partner in cybersecurity solutions.</p>
-    
-    <div class="mt-6">
-        <a href="{% url 'services' %}" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-md">Explore Services</a>
-        <a href="{% url 'contact' %}" class="bg-gray-700 hover:bg-gray-800 text-white py-2 px-4 rounded-md ml-4">Contact Us</a>
+<div class="flex flex-col items-center justify-center mt-10 space-y-6">
+    <!-- Rectangular Frame with Image -->
+    <div class="border-4 border-green-400 rounded-xl shadow-2xl bg-gray-900 w-[1200px] h-[250px] overflow-hidden">
+        <!-- Image -->
+        <img src="{% static 'qwerty_logos/banner.png' %}" alt="Qwerty Tech Logo"
+             class="w-full h-full object-cover">
+    </div>
+
+    <!-- Security 101 Title -->
+    <h2 class="text-4xl font-bold text-green-400 mt-8">SECURITY 101</h2>
+
+    <!-- Video Section with YouTube -->
+    <div class="mt-4 flex justify-center">
+        <iframe class="rounded-xl shadow-2xl transition-transform hover:scale-105"
+                width="1000" height="500"
+                src="https://www.youtube.com/embed/7IF79DeWles?si=nI68aYIr7m9eBr-V"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen>
+        </iframe>
     </div>
 </div>
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <!DOCTYPE html>
-<html>
-<head>
-    <title>Qwerty Tech</title>
-</head>
-<body>
-    <h1>Welcome to Qwerty Tech Cybersecurity Solutions</h1>
-    <a href="{% url 'services' %}">Our Services</a> |
-    <a href="{% url 'blog' %}">Blog</a> |
-    <a href="{% url 'contact' %}">Contact Us</a>
-</body>
-</html> -->
