@@ -1,49 +1,148 @@
-{% extends "base.html" %}
-
-{% block content %}
-<h2 class="text-3xl font-bold text-green-400">Cybersecurity Blog</h2>
-<p class="mt-4 text-gray-300">Latest news and insights on cybersecurity.</p>
-
-
-
-<div class="mt-6">
-    {% for post in posts %}
-    <div class="bg-gray-800 p-4 rounded-lg shadow-md mb-4">
-        <h3 class="text-xl font-semibold text-green-400">{{ post.title }}</h3>
-        {% if post.image %}  <!-- Check if an image exists -->
-        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="my-4 rounded-lg">
-        {% endif %}
-        <p class="text-gray-300">{{ post.content }}</p>
-        <p class="text-gray-500 text-sm">Published on: {{ post.created_at }}</p>
-    </div>
-    {% endfor %}
-</div>
-
-{% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <!DOCTYPE html>
-<html>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Blog</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Qwerty Tech - Cybersecurity Blog">
+    <meta name="keywords" content="Cybersecurity, Hacking, Ethical Hacking, Security, Encryption">
+    <title>Qwerty Tech - Cybersecurity Blog</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <style>
+        /* ✅ Background Moving Code Animation */
+        .animated-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .code-line {
+            position: absolute;
+            color: #67de67c2;
+            font-size: 14px;
+            animation: moveDown 10s linear infinite;
+        }
+
+        @keyframes moveDown {
+            from { transform: translateY(-10vh); opacity: 1; }
+            to { transform: translateY(100vh); opacity: 0; }
+        }
+
+        /* ✅ Neon Glowing Button */
+        .neon-button {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #000;
+            background: #00ff00;
+            border: 3px solid #00ff00;
+            border-radius: 8px;
+            text-transform: uppercase;
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 10px #00ff00, 0 0 40px #00ff00;
+        }
+
+        .neon-button:hover {
+            background: transparent;
+            color: #00ff00;
+            box-shadow: 0 0 20px #00ff00, 0 0 60px #00ff00;
+        }
+    </style>
 </head>
-<body>
-    <h1>Cybersecurity Blog</h1>
-    {% for post in posts %}
-        <h2>{{ post.title }}</h2>
-        <p>{{ post.content }}</p>
-        <hr>
-    {% endfor %}
+
+<body class="bg-gray-900 text-white relative overflow-y-auto">
+    <!-- ✅ Background Animated Code -->
+    <div class="animated-bg" id="animatedBg"></div>
+
+    <!-- ✅ Navigation Bar -->
+    <nav class="bg-gray-800 p-4 shadow-md fixed top-0 w-full z-50 bg-opacity-50">
+        <div class="container mx-auto flex justify-between items-center px-6">
+            <div class="flex items-center">
+                <img src="{% static 'images/qwerty1.png' %}" alt="Qwerty Tech Logo" class="h-10 mr-2">
+                <h1 class="text-xl font-bold text-green-400 cyber-text">Qwerty Tech</h1>
+            </div>
+            <div class="space-x-6">
+                <a href="{% url 'home' %}" class="text-gray-300 hover:text-green-400 transition duration-300">Home</a>
+                <a href="{% url 'services' %}" class="text-gray-300 hover:text-green-400 transition duration-300">Services</a>
+                <a href="{% url 'blog' %}" class="text-gray-300 hover:text-green-400 transition duration-300">Blog</a>
+                <a href="{% url 'contact' %}" class="text-gray-300 hover:text-green-400 transition duration-300">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content - Added pt-20 to prevent navbar overlap -->
+    <main class="pt-20">
+        <!-- Blog Section -->
+        <section id="blog" class="py-24 px-6 text-center">
+            <div class="container mx-auto">
+                <h2 class="text-4xl font-extrabold text-green-400">Latest Blog Posts</h2>
+                <p class="mt-4 text-gray-300 text-lg">Explore the latest insights and trends in cybersecurity.</p>
+
+                <div class="grid md:grid-cols-3 gap-8 mt-12">
+                    {% for post in posts %}
+                    <div class="p-6 bg-gray-800 rounded-lg shadow-md hover:scale-105 transition transform duration-300">
+                        {% if post.image %}
+                        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full h-40 object-cover rounded-md">
+                        {% endif %}
+                        <h3 class="text-xl font-semibold text-green-300 mt-4">{{ post.title }}</h3>
+                        <p class="text-gray-400 mt-2">{{ post.content|truncatewords:20 }}</p>
+                        <a href="{% url 'blog_detail' post.slug %}" class="mt-4 inline-block neon-button">Read More</a>
+                    </div>
+                    {% empty %}
+                    <p class="text-gray-400 mt-6">No blog posts available.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ✅ Footer -->
+    <footer class="bg-gray-800 text-center py-6">
+        <p class="text-gray-400">&copy; 2025 Qwerty Tech. All rights reserved.</p>
+    </footer>
+
+    <!-- ✅ JavaScript to Generate Moving Code -->
+    <script>
+        function generateCodeAnimation() {
+            const codeSnippets = [
+                "firewall_protection();",
+                "encryptData(user_password);",
+                "scanForThreats();",
+                "validateUserLogin();",
+                "checkVulnerability();",
+                "enableMFA();",
+                "monitorNetwork();"
+            ];
+
+            const container = document.getElementById("animatedBg");
+            container.innerHTML = "";
+
+            for (let i = 0; i < 20; i++) {
+                const codeLine = document.createElement("div");
+                codeLine.className = "code-line";
+                codeLine.style.left = `${Math.random() * 100}%`;
+                codeLine.style.animationDuration = `${5 + Math.random() * 10}s`;
+                codeLine.innerText = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+                container.appendChild(codeLine);
+            }
+        }
+
+        generateCodeAnimation();
+        setInterval(generateCodeAnimation, 5000);
+    </script>
 </body>
-</html> -->
+</html>

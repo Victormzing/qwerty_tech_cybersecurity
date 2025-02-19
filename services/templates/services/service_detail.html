@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ service.title }} - Qwerty Tech</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-900 text-white">
+    <div class="container mx-auto my-10 px-6">
+        <a href="{% url 'services' %}" class="text-green-400 hover:underline">&larr; Back to Services</a>
+        <h2 class="text-4xl font-bold text-green-400 mt-4">{{ service.title }}</h2>
+
+        {% if service.image %}
+        <img src="{{ service.image.url }}" alt="{{ service.title }}" class="w-full my-6 rounded-lg shadow-md">
+        {% endif %}
+
+        <p class="text-lg text-gray-300 mt-4 leading-relaxed">{{ service.description }}</p>
+        <p class="text-xl font-bold text-green-400 mt-4">Cost: ${{ service.cost }}</p>
+
+        <!-- Inquiry Button -->
+        <div class="mt-6">
+            <a href="{% url 'contact' %}" class="inline-block px-6 py-3 text-lg font-semibold text-black bg-green-400 rounded-md hover:bg-green-500 transition duration-300">
+                Inquire About This Service
+            </a>
+        </div>
+    </div>
+</body>
+</html>

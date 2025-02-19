@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Qwerty Tech - Cybersecurity Blog">
+    <meta name="keywords" content="Cybersecurity, Hacking, Ethical Hacking, Security">
+    <title>{{ post.title }} - Qwerty Tech Blog</title>
+    
+    <!-- Tailwind CSS & Alpine.js -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+        /* Cybersecurity Text Effects */
+        .cyber-text {
+            text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+            animation: flicker 1.5s infinite alternate;
+        }
+        @keyframes flicker {
+            0% { opacity: 1; }
+            100% { opacity: 0.8; }
+        }
+
+        /* Hacker-Style Console */
+        .console {
+            font-family: monospace;
+            color: #00ff00;
+            background: #1a1a1a;
+            padding: 10px;
+            min-height: 50px;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<!-- ✅ Fix: Removed 'overflow-hidden' to Allow Scrolling -->
+<body class="bg-gray-900 text-white min-h-screen overflow-auto">
+    <!-- ✅ Navigation Bar -->
+    <nav class="bg-gray-800 p-4 shadow-md fixed top-0 w-full z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="{% static 'images/qwerty1.png' %}" alt="Qwerty Tech Logo" class="h-10 mr-2">
+                <h1 class="text-xl font-bold text-green-400 cyber-text">Qwerty Tech</h1>
+            </div>
+            <div>
+                <a href="{% url 'home' %}" class="text-gray-300 hover:text-green-400 px-4">Home</a>
+                <a href="{% url 'services' %}" class="text-gray-300 hover:text-green-400 px-4">Services</a>
+                <a href="{% url 'blog' %}" class="text-gray-300 hover:text-green-400 px-4">Blog</a>
+                <a href="{% url 'contact' %}" class="text-gray-300 hover:text-green-400 px-4">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ✅ Blog Content -->
+    <div class="max-w-3xl mx-auto bg-gray-900 p-6 rounded-lg shadow-lg mt-20">
+        <h2 class="text-4xl font-bold text-green-400 cyber-text">{{ post.title }}</h2>
+        <p class="text-gray-500 mt-2">Published on: {{ post.created_at|date:"F d, Y" }}</p>
+
+        {% if post.image %}
+        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full my-6 rounded-lg shadow-md">
+        {% endif %}
+
+        <p class="text-lg text-gray-300 mt-4 leading-relaxed">{{ post.content|linebreaks }}</p>
+
+        <!-- ✅ Back to Blog Button -->
+        <div class="mt-6">
+            <a href="{% url 'blog' %}" class="inline-block px-6 py-3 text-lg font-semibold text-black bg-green-400 rounded-md hover:bg-green-500 transition duration-300">
+                Back to Blog
+            </a>
+        </div>
+    </div>
+
+    <!-- ✅ Footer with Hacker-Style Console -->
+    <footer class="bg-gray-800 text-center py-6 mt-10">
+        <div class="console" id="hackerConsole"></div>
+        <p class="text-gray-400 mt-4">&copy; 2025 Qwerty Tech. All rights reserved.</p>
+    </footer>
+
+    <!-- ✅ JavaScript for Console Effect -->
+    <script>
+        const hackerMessages = [
+            "Initializing security protocols...",
+            "Scanning network activity...",
+            "Threat analysis in progress...",
+            "Encrypting sensitive data...",
+            "Monitoring cyber threats...",
+            "Deploying firewall defenses...",
+            "Penetration testing active...",
+            "Security status: All systems secure."
+        ];
+
+        function typeConsoleMessage(index = 0) {
+            const consoleElement = document.getElementById("hackerConsole");
+            if (!consoleElement) return;
+            
+            consoleElement.innerHTML = "";
+            let message = hackerMessages[index % hackerMessages.length];
+            let i = 0;
+            let interval = setInterval(() => {
+                consoleElement.innerHTML += message[i];
+                i++;
+                if (i >= message.length) {
+                    clearInterval(interval);
+                    setTimeout(() => typeConsoleMessage(index + 1), 3000);
+                }
+            }, 50);
+        }
+
+        typeConsoleMessage();
+    </script>
+</body>
+</html>

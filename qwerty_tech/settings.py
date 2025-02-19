@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'dashboard',
     'users',
     'tailwind',
-    'theme',
     'theme_src',
 ]
 
@@ -82,6 +81,18 @@ WSGI_APPLICATION = 'qwerty_tech.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'qwerty',
+#         'USER':'postgres', 
+#         'PASSWORD':'mlpnko?/0A', 
+#         'HOST':'localhost',
+#         'PORT':'5432'
+#         #'DBNAME':'postgres'
+#     }
+# }
 
 DATABASES = {
     'default': {
@@ -136,11 +147,11 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-    os.path.join(BASE_DIR, 'theme_src/static'),
+    
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'theme_src/static')  # Or any path of your choice
 MEDIA_ROOT = BASE_DIR / "media"
 
 

@@ -1,50 +1,81 @@
-{% extends "base.html" %}
-
-{% block content %}
-<div>
-    <h2 class="text-3xl font-bold text-green-400">Our Cybersecurity Services</h2>
-    <p class="mt-4 text-gray-300">We offer a wide range of cybersecurity services.</p>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-        <div class="bg-gray-800 p-4 rounded-lg shadow-md">
-            <h3 class="text-xl font-semibold text-green-400">Penetration Testing</h3>
-            <p class="text-gray-300">Identify vulnerabilities before attackers do.</p>
-        </div>
-        <div class="bg-gray-800 p-4 rounded-lg shadow-md">
-            <h3 class="text-xl font-semibold text-green-400">Security Audits</h3>
-            <p class="text-gray-300">Ensure compliance with industry security standards.</p>
-        </div>
-        <div class="bg-gray-800 p-4 rounded-lg shadow-md">
-            <h3 class="text-xl font-semibold text-green-400">Incident Response</h3>
-            <p class="text-gray-300">Quick action to mitigate security breaches.</p>
-        </div>
-    </div>
-</div>
-{% endblock %}
-
-
-
-
-
-
-
-
-
-<!-- <!DOCTYPE html>
-<html>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Our Services</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Qwerty Tech - Cybersecurity Services">
+    <meta name="keywords" content="Cybersecurity, Hacking, Ethical Hacking, Security, Encryption">
+    <title>Qwerty Tech - Our Services</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        .neon-button {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #000;
+            background: #00ff00;
+            border: 3px solid #00ff00;
+            border-radius: 8px;
+            text-transform: uppercase;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 0 10px #00ff00, 0 0 40px #00ff00;
+        }
+        .neon-button:hover {
+            background: transparent;
+            color: #00ff00;
+            box-shadow: 0 0 20px #00ff00, 0 0 60px #00ff00;
+        }
+    </style>
 </head>
-<body>
-    <h1>Cybersecurity Services</h1>
-    <ul>
-        <li>Penetration Testing</li>
-        <li>Security Audits & Compliance</li>
-        <li>Incident Response</li>
-        <li>Threat Intelligence</li>
-        <li>Software Development</li>
-        <li>Website Development</li>
-        <li>access control installation</li>
-    </ul>
+
+<body class="bg-gray-900 text-white">
+    <!-- ✅ Navigation Bar -->
+    <nav class="bg-gray-800 p-4 shadow-md fixed top-0 w-full z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="{% static 'images/qwerty1.png' %}" alt="Qwerty Tech Logo" class="h-10 mr-2">
+                <h1 class="text-xl font-bold text-green-400">Qwerty Tech</h1>
+            </div>
+            <div>
+                <a href="{% url 'home' %}" class="text-gray-300 hover:text-green-400 px-4">Home</a>
+                <a href="{% url 'services' %}" class="text-gray-300 hover:text-green-400 px-4">Services</a>
+                <a href="{% url 'blog' %}" class="text-gray-300 hover:text-green-400 px-4">Blog</a>
+                <a href="{% url 'contact' %}" class="text-gray-300 hover:text-green-400 px-4">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ✅ Services List -->
+    <section class="min-h-screen pt-20">
+        <div class="container mx-auto text-center px-8">
+            <h2 class="text-4xl font-extrabold text-green-400">Our Cybersecurity Services</h2>
+            <p class="mt-4 text-gray-300 text-lg">Click on a service to learn more.</p>
+
+            <div class="grid md:grid-cols-3 gap-6 mt-10">
+                {% for service in services %}
+                <a href="{% url 'service_detail' service.pk %}" class="p-6 bg-gray-800 rounded-lg shadow-md hover:scale-105 transition duration-300">
+                    {% if service.image %}
+                    <img src="{{ service.image.url }}" alt="{{ service.title }}" class="w-full h-40 object-cover rounded-md">
+                    {% endif %}
+                    <h3 class="text-xl font-semibold text-green-300 mt-4">{{ service.title }}</h3>
+                    <p class="text-gray-400 mt-2">{{ service.description|truncatewords:15 }}</p>
+                    <p class="text-lg font-bold text-green-400 mt-2">${{ service.cost }}</p>
+                </a>
+                {% empty %}
+                <p class="text-gray-400 mt-4">No services available.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- ✅ Footer -->
+    <footer class="bg-gray-800 text-center py-6 mt-10">
+        <p class="text-gray-400">&copy; 2025 Qwerty Tech. All rights reserved.</p>
+    </footer>
 </body>
-</html> -->
+</html>
